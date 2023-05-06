@@ -1,10 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: inworldai-discord
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inworldai-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inworldai-redis
+  template:
+    metadata:
+      labels:
+        app: inworldai-redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:6.2.5-alpine
+        ports:
+        - containerPort: 6379
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
+        readinessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 5
+          periodSeconds: 10
+
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: inworldai-discord
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: inworldai-discord
@@ -15,36 +54,20 @@ spec:
     spec:
       initContainers:
       - name: init-redis
-        image: redis
+        image: redis:6.2.5-alpine
+        env:
+        - name: REDIS_HOST
+          value: inworldai-redis
         command:
         - sh
         - -c
         - |
-          redis-cli -h localhost ping
-        readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        ports:
-        - containerPort: 6379
+          until redis-cli -h $REDIS_HOST ping; do sleep 1; done
         resources:
           limits:
             cpu: "0.1"
             memory: "128Mi"
       containers:
-      - name: redis
-        image: redis
-        ports:
-        - containerPort: 6379
-        resources:
-          limits:
-            cpu: "0.1"
-            memory: "128Mi"
       - name: inworldai-discord 
         image: "devopswithbrian/inworldai-discord:0.20.1"
         imagePullPolicy: Always
@@ -73,7 +96,7 @@ spec:
                 name: inworldai-discord-prd
                 key: INWORLD_SCENE
           - name: REDIS_HOST
-            value: "localhost"
+            value: inworldai-redis
         resources:
           limits:
             cpu: "0.5"
@@ -81,9 +104,8 @@ spec:
         readinessProbe:
           exec:
             command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
+            - redis-cli
+            - ping
           initialDelaySeconds: 5
           periodSeconds: 10
+---
