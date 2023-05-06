@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inworldai-discord
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: inworldai-discord
+  template:
+    metadata:
+      labels:
+        app: inworldai-discord
+    spec:
+      containers:
+      - name: inworldai-discord 
+        image: "devopswithbrian/inworldai-discord:0.20.1"
+        imagePullPolicy: Always
+        tty: true
+        env:
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          - name: DISCORD_BOT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: inworldai-discord-prd
+                key: DISCORD_BOT_TOKEN
+          - name: INWORLD_KEY
+            valueFrom:
+              secretKeyRef:
+                name: inworldai-discord-prd
+                key: INWORLD_KEY
+          - name: INWORLD_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: inworldai-discord-prd
+                key: INWORLD_SECRET
+          - name: INWORLD_SCENE
+            valueFrom:
+              secretKeyRef:
+                name: inworldai-discord-prd
+                key: INWORLD_SCENE
+          - name: REDIS_HOST
+            valueFrom:
+              secretKeyRef:
+                name: inworldai-discord-prd
+                key: REDIS_HOST
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
