@@ -22,14 +22,14 @@ spec:
         - -c
         - |
           # Wait for Redis to be ready
-          redis-cli -h localhost -a $REDIS_PASSWORD ping
+          redis-cli -h localhost -a ping
         readinessProbe:
           exec:
             command:
             - sh
             - -c
             - |
-              redis-cli -h localhost -a $REDIS_PASSWORD ping
+              redis-cli -h localhost -a ping
           initialDelaySeconds: 5
           periodSeconds: 10
         ports:
