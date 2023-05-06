@@ -20,17 +20,7 @@ spec:
         - sh
         - -c
         - |
-          # Wait for Redis to be ready
           redis-cli -h localhost ping
-        livenessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
-          initialDelaySeconds: 5
-          periodSeconds: 10
         ports:
         - containerPort: 6379
         resources:
@@ -67,8 +57,8 @@ spec:
                 key: INWORLD_SCENE
           - name: REDIS_HOST
             valueFrom:
-              secretKeyRef:
-                name: inworldai-discord-prd
+              configMapKeyRef:
+                name: inworldai-discord
                 key: REDIS_HOST
         resources:
           limits:
