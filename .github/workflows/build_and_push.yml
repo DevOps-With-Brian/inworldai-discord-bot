@@ -41,7 +41,6 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ./api
-          file: ./api/Dockerfile
+          context: .
           push: true
           tags: devopswithbrian/inworldai-discord:latest,devopswithbrian/inworldai-discord:${{ env.COMMITIZEN_VER }}
