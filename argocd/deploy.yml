@@ -20,7 +20,6 @@ spec:
         - sh
         - -c
         - |
-          # Wait for Redis to be ready
           redis-cli -h localhost ping
         readinessProbe:
           exec:
@@ -38,6 +37,14 @@ spec:
             cpu: "0.1"
             memory: "128Mi"
       containers:
+      - name: redis
+        image: redis
+        ports:
+        - containerPort: 6379
+        resources:
+          limits:
+            cpu: "0.1"
+            memory: "128Mi"
       - name: inworldai-discord 
         image: "devopswithbrian/inworldai-discord:0.20.1"
         imagePullPolicy: Always
@@ -66,10 +73,7 @@ spec:
                 name: inworldai-discord-prd
                 key: INWORLD_SCENE
           - name: REDIS_HOST
-            valueFrom:
-              secretKeyRef:
-                name: inworldai-discord-prd
-                key: REDIS_HOST
+            value: "localhost"
         resources:
           limits:
             cpu: "0.5"
