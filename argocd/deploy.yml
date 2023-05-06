@@ -16,7 +16,6 @@ spec:
       initContainers:
       - name: init-redis
         image: redis
-        env:
         command:
         - sh
         - -c
@@ -29,7 +28,7 @@ spec:
             - sh
             - -c
             - |
-              redis-cli -h localhost -a ping
+              redis-cli -h localhost ping
           initialDelaySeconds: 5
           periodSeconds: 10
         ports:
