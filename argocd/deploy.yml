@@ -22,15 +22,6 @@ spec:
         - |
           # Wait for Redis to be ready
           redis-cli -h localhost ping
-        readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
-          initialDelaySeconds: 5
-          periodSeconds: 10
         ports:
         - containerPort: 6379
         resources:
