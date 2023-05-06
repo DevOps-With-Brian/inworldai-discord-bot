@@ -13,29 +13,6 @@ spec:
       labels:
         app: inworldai-discord
     spec:
-      initContainers:
-      - name: init-redis
-        image: redis
-        command:
-        - sh
-        - -c
-        - |
-          redis-cli -h localhost ping
-        readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        ports:
-        - containerPort: 6379
-        resources:
-          limits:
-            cpu: "0.1"
-            memory: "128Mi"
       containers:
       - name: inworldai-discord 
         image: "devopswithbrian/inworldai-discord:0.20.1"
@@ -64,21 +41,3 @@ spec:
               secretKeyRef:
                 name: inworldai-discord-prd
                 key: INWORLD_SCENE
-          - name: REDIS_HOST
-            valueFrom:
-              secretKeyRef:
-                name: inworldai-discord-prd
-                key: REDIS_HOST
-        resources:
-          limits:
-            cpu: "0.5"
-            memory: "512Mi"
-        readinessProbe:
-          exec:
-            command:
-            - sh
-            - -c
-            - |
-              redis-cli -h localhost ping
-          initialDelaySeconds: 5
-          periodSeconds: 10
