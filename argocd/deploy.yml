@@ -21,7 +21,7 @@ spec:
         - -c
         - |
           # Wait for Redis to be ready
-          redis-cli -h localhost -a ping
+          redis-cli -h localhost ping
         readinessProbe:
           exec:
             command:
@@ -66,10 +66,7 @@ spec:
                 name: inworldai-discord-prd
                 key: INWORLD_SCENE
           - name: REDIS_HOST
-            valueFrom:
-              secretKeyRef:
-                name: inworldai-discord-prd
-                key: REDIS_HOST
+            value: "localhost"
         resources:
           limits:
             cpu: "0.5"
