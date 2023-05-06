@@ -1,0 +1,32 @@
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  validate-cc:
+    name: Validating Conventional Commit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{github.event.after}}
+      - name: Get Commit Message
+        run: |
+          echo "MSG=$(git log --format=%B -n 1 ${{github.event.after}})" >> $GITHUB_ENV
+      - name: Install Commitizen
+        run: pip install -U Commitizen
+      - name: Check For Valid Commit Message
+        run: cz check -m "${{env.MSG }}"
+      - name: Checking Commitizen Works
+        run: cz version -p
+      - name: Set Version
+        run: |
+          echo "COMMITIZEN_VER=$(cz version -p)" >> $GITHUB_ENV
+        id: commitizen-version
+      - name: Echo Current Version
+        run: |
+          echo "The current version is: ${{ env.COMMITIZEN_VER }}"
