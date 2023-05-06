@@ -15,3 +15,6 @@ You also will need to setup a scene and use that scene ID  which you can get fro
 
 # Docker Compose Locally
 So you can run this all via `doppler run -- docker-compose up -d` to bring both redis and the inworld ai app up.  At this point you should now be able to talk to your bot in discord.
+
+# Running in Kubernetes
+Currently I'm using ArgoCD to deploy my manifest files in the `argocd` folder, this is also using the https://docs.doppler.com/docs/kubernetes-operator for the secrets part.  It should just be a matter of applying the yaml files and it should all come up and just work.
