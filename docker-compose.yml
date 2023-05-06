@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: ["yarn", "start"]
+    environment:
+      - NODE_ENV=production
+      - INWORLD_KEY
+      - INWORLD_SECRET
+      - INWORLD_SCENE
+      - DISCORD_BOT_TOKEN
+      - REDIS_HOST=172.26.119.222
+      - NODE_OPTIONS=--max-old-space-size=8192
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
