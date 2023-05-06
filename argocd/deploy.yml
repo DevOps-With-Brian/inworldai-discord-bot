@@ -57,8 +57,8 @@ spec:
                 key: INWORLD_SCENE
           - name: REDIS_HOST
             valueFrom:
-              configMapKeyRef:
-                name: inworldai-discord
+              secretKeyRef:
+                name: inworldai-discord-prd
                 key: REDIS_HOST
         resources:
           limits:
