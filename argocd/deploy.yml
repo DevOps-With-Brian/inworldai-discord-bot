@@ -20,7 +20,6 @@ spec:
         - sh
         - -c
         - |
-          # Wait for Redis to be ready
           redis-cli -h localhost ping
         readinessProbe:
           exec:
