@@ -10,7 +10,7 @@ services:
       - INWORLD_SECRET
       - INWORLD_SCENE
       - DISCORD_BOT_TOKEN
-      - REDIS_HOST=172.26.119.222
+      - REDIS_HOST=172.28.59.199
       - NODE_OPTIONS=--max-old-space-size=8192
     depends_on:
       - redis

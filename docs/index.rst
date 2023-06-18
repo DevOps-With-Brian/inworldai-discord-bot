@@ -18,4 +18,5 @@ This documentation goes over how to use the inworld-discord repository/code to s
    pre_reqs
    initial_setup
    secrets_management
-   discord_bot_setup
+   running_bot_locally
+   deploy_bot_to_production

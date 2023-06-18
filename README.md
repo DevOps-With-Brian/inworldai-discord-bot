@@ -1,4 +1,6 @@
 # inworldai-discord-bot
+[![Documentation Status](https://readthedocs.org/projects/inworldai-discord-bot/badge/?version=latest)](https://inworldai-discord-bot.readthedocs.io/en/latest/?badge=latest)
+
 A chatbot setup with eventual deployment for inworldai discord chatbot.
 
 # Initial Setup
