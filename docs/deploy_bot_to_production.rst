@@ -70,9 +70,14 @@ Then you can run ``terraform plan`` to ensure everything looks correct, if so th
 
 Now you should have a virtual machine that you should be able to login to via the ``ssh root@ip_here`` that is in the Linode console, it won't use a password it should use your authorized_key that you provided.
 
+You would just need to clone/download your source code into the vm before running the ``docker-compose`` command as a FYI.  You could simply do ``git clone https://github.com/DevOps-With-Brian/inworldai-discord-bot.git`` and replace with your repo or use the one provided.
+
+Then cd to the ``inworld-discord-bot`` dir and run ``chmod u+x vm_setup.sh`` so you can execute it to setup the vm.
+
 You can use the provided ``vm_setup.sh`` in the root of the repo after cloning it down to setup the virtual machine with all the required pre-req's.  Then you just follow the existing docs for :ref:`running_bot_locally`, please make sure you select ``prd`` as the environment not ``dev`` now.
 
-You would just need to clone/download your source code into the vm before running the ``docker-compose`` command as a FYI.
+Please also ensure you change the ``REDIS_HOST`` var in the docker-compose file to ``localhost`` since now its running on the same box and not in our WSL setup.
+
 
 Deploying on Kubernetes
 -----------------------
