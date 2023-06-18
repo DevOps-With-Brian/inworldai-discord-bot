@@ -3,6 +3,8 @@
 
 A chatbot setup with eventual deployment for inworldai discord chatbot.
 
+For support/to hangout you can join my [Discord Server](https://discord.gg/BVGUgZQNZJ) and also find me on [Twitch](https://www.twitch.tv/highmindai) and [YouTube](https://www.youtube.com/@highmindai)
+
 # Initial Setup
 So the initial setup requires you have `yarn` installed as well as a way to manage your secrets/tokens.  We are currently using [Doppler](https://doppler.com/join?invite=524473B9) to manage our secrets so the instructions will be based off that, its free to use and is typically easier.
 
