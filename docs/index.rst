@@ -7,6 +7,7 @@ Welcome to inworld-discord's documentation!
 ===========================================
 This documentation goes over how to use the inworld-discord repository/code to setup your own Inworld AI character in your Discord server.
 
+You can join my `Discord Server <https://discord.gg/BVGUgZQNZJ>`_ and talk to Grizelda in the last-drop channel as well if you would like to see a version of this.
 
 .. Hidden TOCs
 
