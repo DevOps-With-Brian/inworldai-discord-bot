@@ -133,3 +133,9 @@ dist
 # Ignore Doc Stuff
 docs/_build/*
 .venv
+
+# Terraform
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/.terraform/*
